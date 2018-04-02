@@ -1,0 +1,525 @@
+---------------------------------------------------------------
+[ 2018-03-30T21:08:42+08:00 ] 127.0.0.1 OPTIONS /admin/Login/index
+[ info ] adminapi.cn/admin/Login/index [运行时间：0.517417s][吞吐率：1.93req/s] [内存消耗：1,374.84kb] [文件加载：43]
+[ info ] [ LANG ] G:\code\php\blog\ApiAdmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'Miss',
+    2 => 'index',
+  ),
+  'convert' => false,
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'accept-encoding' => 'gzip, deflate, sdch',
+  'referer' => 'http://localhost:8080/',
+  'accept' => '*/*',
+  'access-control-request-headers' => 'apiauth, content-type',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'origin' => 'http://localhost:8080',
+  'access-control-request-method' => 'POST',
+  'connection' => 'close',
+  'host' => 'adminapi.cn',
+)
+[ info ] [ PARAM ] array (
+  'admin' => 'Login',
+)
+[ info ] [ RUN ] app\admin\controller\Miss->index[ G:\code\php\blog\ApiAdmin\application\admin\controller\Miss.php ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\BuildResponse @response_send [ RunTime:0.007191s ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-30T21:08:42+08:00 ] 127.0.0.1 POST /admin/Login/index
+[ info ] adminapi.cn/admin/Login/index [运行时间：0.387742s][吞吐率：2.58req/s] [内存消耗：2,610.04kb] [文件加载：58]
+[ info ] [ LANG ] G:\code\php\blog\ApiAdmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'Login',
+    2 => 'index',
+  ),
+  'convert' => false,
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://localhost:8080/',
+  'content-type' => 'application/json;charset=UTF-8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'origin' => 'http://localhost:8080',
+  'accept' => 'application/json, text/plain, */*',
+  'apiauth' => 'null',
+  'content-length' => '37',
+  'connection' => 'close',
+  'host' => 'adminapi.cn',
+)
+[ info ] [ PARAM ] array (
+  'username' => 'root',
+  'password' => 'root',
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ RUN ] app\admin\controller\Login->index[ G:\code\php\blog\ApiAdmin\application\admin\controller\Login.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\BuildResponse @response_send [ RunTime:0.000217s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.008749s ] mysql:host=127.0.0.1;dbname=blog;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `admin_user` [ RunTime:0.035177s ]
+[ sql ] [ SQL ] SELECT * FROM `admin_user` WHERE  `username` = 'root'  AND `password` = '63f7cd6ff14508ec5891e1f788a08284' LIMIT 1 [ RunTime:0.001088s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `admin_user_data` [ RunTime:0.028597s ]
+[ sql ] [ SQL ] SELECT * FROM `admin_user_data` WHERE  `uid` = '1' LIMIT 1 [ RunTime:0.000616s ]
+[ sql ] [ SQL ] UPDATE `admin_user_data`  SET `loginTimes`=31,`lastLoginTime`=1522415322  WHERE  `id` = 1 [ RunTime:0.003120s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `admin_menu` [ RunTime:0.033318s ]
+[ sql ] [ SQL ] SELECT * FROM `admin_menu` WHERE  `hide` = 0 [ RunTime:0.001405s ]
+---------------------------------------------------------------
+[ 2018-03-30T21:10:02+08:00 ] 127.0.0.1 OPTIONS /admin/User/index?page=1&size=10&type=&keywords=&status=
+[ info ] adminapi.cn/admin/User/index?page=1&size=10&type=&keywords=&status= [运行时间：0.043083s][吞吐率：23.21req/s] [内存消耗：1,375.55kb] [文件加载：43]
+[ info ] [ LANG ] G:\code\php\blog\ApiAdmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'Miss',
+    2 => 'index',
+  ),
+  'convert' => false,
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'accept-encoding' => 'gzip, deflate, sdch',
+  'referer' => 'http://localhost:8080/',
+  'accept' => '*/*',
+  'access-control-request-headers' => 'apiauth',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'origin' => 'http://localhost:8080',
+  'access-control-request-method' => 'GET',
+  'connection' => 'close',
+  'host' => 'adminapi.cn',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'size' => '10',
+  'type' => '',
+  'keywords' => '',
+  'status' => '',
+  'admin' => 'User',
+)
+[ info ] [ RUN ] app\admin\controller\Miss->index[ G:\code\php\blog\ApiAdmin\application\admin\controller\Miss.php ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\BuildResponse @response_send [ RunTime:0.000511s ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-30T21:10:03+08:00 ] 127.0.0.1 GET /admin/User/index?page=1&size=10&type=&keywords=&status=
+[ info ] adminapi.cn/admin/User/index?page=1&size=10&type=&keywords=&status= [运行时间：0.323271s][吞吐率：3.09req/s] [内存消耗：2,692.95kb] [文件加载：63]
+[ info ] [ LANG ] G:\code\php\blog\ApiAdmin\thinkphp\lang\zh-cn.php
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run \app\admin\behavior\ApiAuth @ [ RunTime:0.022986s ]
+[ info ] [ BEHAVIOR ] Run \app\admin\behavior\ApiPermission @ [ RunTime:0.011265s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ BEHAVIOR ] Run \app\admin\behavior\AdminLog @ [ RunTime:0.136698s ]
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'User',
+    2 => 'index',
+  ),
+  'convert' => false,
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'accept-encoding' => 'gzip, deflate, sdch',
+  'referer' => 'http://localhost:8080/',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'origin' => 'http://localhost:8080',
+  'accept' => 'application/json, text/plain, */*',
+  'apiauth' => 'c5bfac358abf0b29942c1c4eea9d80f1',
+  'connection' => 'close',
+  'host' => 'adminapi.cn',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'size' => '10',
+  'type' => '',
+  'keywords' => '',
+  'status' => '',
+)
+[ info ] [ RUN ] app\admin\controller\User->index[ G:\code\php\blog\ApiAdmin\application\admin\controller\User.php ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\BuildResponse @response_send [ RunTime:0.000256s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001481s ] mysql:host=127.0.0.1;dbname=blog;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `admin_menu` [ RunTime:0.057491s ]
+[ sql ] [ SQL ] SELECT * FROM `admin_menu` WHERE  `url` = 'admin/User/index' LIMIT 1 [ RunTime:0.000619s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `admin_user_action` [ RunTime:0.032698s ]
+[ sql ] [ SQL ] INSERT INTO `admin_user_action` (`actionName` , `uid` , `nickname` , `addTime` , `url` , `data`) VALUES ('用户列表' , 1 , 'root' , 1522415402 , 'admin/User/index' , '{\"page\":\"1\",\"size\":\"10\",\"type\":\"\",\"keywords\":\"\",\"status\":\"\"}') [ RunTime:0.002492s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `admin_user` [ RunTime:0.028981s ]
+[ sql ] [ SQL ] SELECT * FROM `admin_user` ORDER BY `regTime`  DESC LIMIT 0,10 [ RunTime:0.000603s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `admin_user` LIMIT 1 [ RunTime:0.000407s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `admin_user_data` [ RunTime:0.022441s ]
+[ sql ] [ SQL ] SELECT * FROM `admin_user_data` WHERE  `uid` IN ('2','1') [ RunTime:0.000499s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `admin_auth_group_access` [ RunTime:0.031048s ]
+[ sql ] [ SQL ] SELECT * FROM `admin_auth_group_access` WHERE  `uid` IN (2,1) [ RunTime:0.000492s ]
+---------------------------------------------------------------
+[ 2018-03-30T21:15:21+08:00 ] 127.0.0.1 OPTIONS /admin/Login/logout
+[ info ] adminapi.cn/admin/Login/logout [运行时间：0.026463s][吞吐率：37.79req/s] [内存消耗：1,374.80kb] [文件加载：43]
+[ info ] [ LANG ] G:\code\php\blog\ApiAdmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'Miss',
+    2 => 'index',
+  ),
+  'convert' => false,
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'accept-encoding' => 'gzip, deflate, sdch',
+  'referer' => 'http://localhost:8080/',
+  'accept' => '*/*',
+  'access-control-request-headers' => 'apiauth',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'origin' => 'http://localhost:8080',
+  'access-control-request-method' => 'GET',
+  'connection' => 'close',
+  'host' => 'adminapi.cn',
+)
+[ info ] [ PARAM ] array (
+  'admin' => 'Login',
+)
+[ info ] [ RUN ] app\admin\controller\Miss->index[ G:\code\php\blog\ApiAdmin\application\admin\controller\Miss.php ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\BuildResponse @response_send [ RunTime:0.000338s ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-30T21:15:21+08:00 ] 127.0.0.1 GET /admin/Login/logout
+[ info ] adminapi.cn/admin/Login/logout [运行时间：0.106872s][吞吐率：9.36req/s] [内存消耗：2,546.19kb] [文件加载：58]
+[ info ] [ LANG ] G:\code\php\blog\ApiAdmin\thinkphp\lang\zh-cn.php
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run \app\admin\behavior\ApiAuth @ [ RunTime:0.001732s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ BEHAVIOR ] Run \app\admin\behavior\AdminLog @ [ RunTime:0.080628s ]
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'Login',
+    2 => 'logout',
+  ),
+  'convert' => false,
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'accept-encoding' => 'gzip, deflate, sdch',
+  'referer' => 'http://localhost:8080/',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'origin' => 'http://localhost:8080',
+  'accept' => 'application/json, text/plain, */*',
+  'apiauth' => 'c5bfac358abf0b29942c1c4eea9d80f1',
+  'connection' => 'close',
+  'host' => 'adminapi.cn',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ RUN ] app\admin\controller\Login->logout[ G:\code\php\blog\ApiAdmin\application\admin\controller\Login.php ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\BuildResponse @response_send [ RunTime:0.000332s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001350s ] mysql:host=127.0.0.1;dbname=blog;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `admin_menu` [ RunTime:0.034736s ]
+[ sql ] [ SQL ] SELECT * FROM `admin_menu` WHERE  `url` = 'admin/Login/logout' LIMIT 1 [ RunTime:0.000682s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `admin_user_action` [ RunTime:0.028677s ]
+[ sql ] [ SQL ] INSERT INTO `admin_user_action` (`actionName` , `uid` , `nickname` , `addTime` , `url` , `data`) VALUES ('用户登出' , 1 , 'root' , 1522415721 , 'admin/Login/logout' , '[]') [ RunTime:0.002185s ]
+---------------------------------------------------------------
+[ 2018-03-30T21:20:39+08:00 ] 127.0.0.1 OPTIONS /admin/Login/index
+[ info ] adminapi.cn/admin/Login/index [运行时间：0.036250s][吞吐率：27.59req/s] [内存消耗：1,374.85kb] [文件加载：43]
+[ info ] [ LANG ] G:\code\php\blog\ApiAdmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'Miss',
+    2 => 'index',
+  ),
+  'convert' => false,
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'accept-encoding' => 'gzip, deflate, sdch',
+  'referer' => 'http://localhost:8080/',
+  'accept' => '*/*',
+  'access-control-request-headers' => 'apiauth, content-type',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'origin' => 'http://localhost:8080',
+  'access-control-request-method' => 'POST',
+  'connection' => 'close',
+  'host' => 'adminapi.cn',
+)
+[ info ] [ PARAM ] array (
+  'admin' => 'Login',
+)
+[ info ] [ RUN ] app\admin\controller\Miss->index[ G:\code\php\blog\ApiAdmin\application\admin\controller\Miss.php ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\BuildResponse @response_send [ RunTime:0.000327s ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-30T21:20:40+08:00 ] 127.0.0.1 POST /admin/Login/index
+[ info ] adminapi.cn/admin/Login/index [运行时间：0.100516s][吞吐率：9.95req/s] [内存消耗：2,518.11kb] [文件加载：56]
+[ info ] [ LANG ] G:\code\php\blog\ApiAdmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'Login',
+    2 => 'index',
+  ),
+  'convert' => false,
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://localhost:8080/',
+  'content-type' => 'application/json;charset=UTF-8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'origin' => 'http://localhost:8080',
+  'accept' => 'application/json, text/plain, */*',
+  'apiauth' => 'null',
+  'content-length' => '38',
+  'connection' => 'close',
+  'host' => 'adminapi.cn',
+)
+[ info ] [ PARAM ] array (
+  'username' => 'root',
+  'password' => 'root1',
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ RUN ] app\admin\controller\Login->index[ G:\code\php\blog\ApiAdmin\application\admin\controller\Login.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\BuildResponse @response_send [ RunTime:0.000375s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.002031s ] mysql:host=127.0.0.1;dbname=blog;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `admin_user` [ RunTime:0.041571s ]
+[ sql ] [ SQL ] SELECT * FROM `admin_user` WHERE  `username` = 'root'  AND `password` = 'b369265a4eed6df19c9871e828fa0454' LIMIT 1 [ RunTime:0.000875s ]
+---------------------------------------------------------------
+[ 2018-03-30T21:30:16+08:00 ] 127.0.0.1 OPTIONS /admin/Login/index
+[ info ] adminapi.cn/admin/Login/index [运行时间：0.024775s][吞吐率：40.36req/s] [内存消耗：1,374.85kb] [文件加载：43]
+[ info ] [ LANG ] G:\code\php\blog\ApiAdmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'Miss',
+    2 => 'index',
+  ),
+  'convert' => false,
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'accept-encoding' => 'gzip, deflate, sdch',
+  'referer' => 'http://localhost:8080/',
+  'accept' => '*/*',
+  'access-control-request-headers' => 'apiauth, content-type',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'origin' => 'http://localhost:8080',
+  'access-control-request-method' => 'POST',
+  'connection' => 'close',
+  'host' => 'adminapi.cn',
+)
+[ info ] [ PARAM ] array (
+  'admin' => 'Login',
+)
+[ info ] [ RUN ] app\admin\controller\Miss->index[ G:\code\php\blog\ApiAdmin\application\admin\controller\Miss.php ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\BuildResponse @response_send [ RunTime:0.000279s ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-30T21:30:16+08:00 ] 127.0.0.1 POST /admin/Login/index
+[ info ] adminapi.cn/admin/Login/index [运行时间：0.166109s][吞吐率：6.02req/s] [内存消耗：2,610.04kb] [文件加载：58]
+[ info ] [ LANG ] G:\code\php\blog\ApiAdmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'Login',
+    2 => 'index',
+  ),
+  'convert' => false,
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'accept-encoding' => 'gzip, deflate',
+  'referer' => 'http://localhost:8080/',
+  'content-type' => 'application/json;charset=UTF-8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'origin' => 'http://localhost:8080',
+  'accept' => 'application/json, text/plain, */*',
+  'apiauth' => 'null',
+  'content-length' => '37',
+  'connection' => 'close',
+  'host' => 'adminapi.cn',
+)
+[ info ] [ PARAM ] array (
+  'username' => 'root',
+  'password' => 'root',
+)
+[ info ] [ CACHE ] INIT File
+[ info ] [ RUN ] app\admin\controller\Login->index[ G:\code\php\blog\ApiAdmin\application\admin\controller\Login.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\BuildResponse @response_send [ RunTime:0.000263s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001911s ] mysql:host=127.0.0.1;dbname=blog;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `admin_user` [ RunTime:0.034047s ]
+[ sql ] [ SQL ] SELECT * FROM `admin_user` WHERE  `username` = 'root'  AND `password` = '63f7cd6ff14508ec5891e1f788a08284' LIMIT 1 [ RunTime:0.000620s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `admin_user_data` [ RunTime:0.024339s ]
+[ sql ] [ SQL ] SELECT * FROM `admin_user_data` WHERE  `uid` = '1' LIMIT 1 [ RunTime:0.000453s ]
+[ sql ] [ SQL ] UPDATE `admin_user_data`  SET `loginTimes`=32,`lastLoginTime`=1522416616  WHERE  `id` = 1 [ RunTime:0.002042s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `admin_menu` [ RunTime:0.023543s ]
+[ sql ] [ SQL ] SELECT * FROM `admin_menu` WHERE  `hide` = 0 [ RunTime:0.000624s ]
+---------------------------------------------------------------
+[ 2018-03-30T21:31:05+08:00 ] 127.0.0.1 OPTIONS /admin/User/index?page=1&size=10&type=&keywords=&status=
+[ info ] adminapi.cn/admin/User/index?page=1&size=10&type=&keywords=&status= [运行时间：0.035954s][吞吐率：27.81req/s] [内存消耗：1,375.55kb] [文件加载：43]
+[ info ] [ LANG ] G:\code\php\blog\ApiAdmin\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'Miss',
+    2 => 'index',
+  ),
+  'convert' => false,
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'accept-encoding' => 'gzip, deflate, sdch',
+  'referer' => 'http://localhost:8080/',
+  'accept' => '*/*',
+  'access-control-request-headers' => 'apiauth',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'origin' => 'http://localhost:8080',
+  'access-control-request-method' => 'GET',
+  'connection' => 'close',
+  'host' => 'adminapi.cn',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'size' => '10',
+  'type' => '',
+  'keywords' => '',
+  'status' => '',
+  'admin' => 'User',
+)
+[ info ] [ RUN ] app\admin\controller\Miss->index[ G:\code\php\blog\ApiAdmin\application\admin\controller\Miss.php ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\BuildResponse @response_send [ RunTime:0.000418s ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2018-03-30T21:31:06+08:00 ] 127.0.0.1 GET /admin/User/index?page=1&size=10&type=&keywords=&status=
+[ info ] adminapi.cn/admin/User/index?page=1&size=10&type=&keywords=&status= [运行时间：0.242227s][吞吐率：4.13req/s] [内存消耗：2,692.95kb] [文件加载：63]
+[ info ] [ LANG ] G:\code\php\blog\ApiAdmin\thinkphp\lang\zh-cn.php
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run \app\admin\behavior\ApiAuth @ [ RunTime:0.005502s ]
+[ info ] [ BEHAVIOR ] Run \app\admin\behavior\ApiPermission @ [ RunTime:0.001282s ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ BEHAVIOR ] Run \app\admin\behavior\AdminLog @ [ RunTime:0.126112s ]
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'User',
+    2 => 'index',
+  ),
+  'convert' => false,
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'accept-encoding' => 'gzip, deflate, sdch',
+  'referer' => 'http://localhost:8080/',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+  'origin' => 'http://localhost:8080',
+  'accept' => 'application/json, text/plain, */*',
+  'apiauth' => '5fa8aa15dc50c5b09876d2a84a3b6574',
+  'connection' => 'close',
+  'host' => 'adminapi.cn',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'size' => '10',
+  'type' => '',
+  'keywords' => '',
+  'status' => '',
+)
+[ info ] [ RUN ] app\admin\controller\User->index[ G:\code\php\blog\ApiAdmin\application\admin\controller\User.php ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\BuildResponse @response_send [ RunTime:0.000211s ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001590s ] mysql:host=127.0.0.1;dbname=blog;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `admin_menu` [ RunTime:0.053611s ]
+[ sql ] [ SQL ] SELECT * FROM `admin_menu` WHERE  `url` = 'admin/User/index' LIMIT 1 [ RunTime:0.002184s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `admin_user_action` [ RunTime:0.032167s ]
+[ sql ] [ SQL ] INSERT INTO `admin_user_action` (`actionName` , `uid` , `nickname` , `addTime` , `url` , `data`) VALUES ('用户列表' , 1 , 'root' , 1522416666 , 'admin/User/index' , '{\"page\":\"1\",\"size\":\"10\",\"type\":\"\",\"keywords\":\"\",\"status\":\"\"}') [ RunTime:0.013129s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `admin_user` [ RunTime:0.020020s ]
+[ sql ] [ SQL ] SELECT * FROM `admin_user` ORDER BY `regTime`  DESC LIMIT 0,10 [ RunTime:0.000581s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `admin_user` LIMIT 1 [ RunTime:0.000464s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `admin_user_data` [ RunTime:0.023173s ]
+[ sql ] [ SQL ] SELECT * FROM `admin_user_data` WHERE  `uid` IN ('2','1') [ RunTime:0.000590s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `admin_auth_group_access` [ RunTime:0.023516s ]
+[ sql ] [ SQL ] SELECT * FROM `admin_auth_group_access` WHERE  `uid` IN (2,1) [ RunTime:0.000470s ]
+---------------------------------------------------------------
+[ 2018-03-30T21:35:10+08:00 ] 127.0.0.1 GET /admin/User/index?page=1&size=10&type=&keywords=&status=
+[ info ] adminapi.cn/admin/User/index?page=1&size=10&type=&keywords=&status= [运行时间：0.019495s][吞吐率：51.30req/s] [内存消耗：1,102.09kb] [文件加载：34]
+[ info ] [ LANG ] G:\code\php\blog\ApiAdmin\thinkphp\lang\zh-cn.php
+[ info ] [ BEHAVIOR ] Run \app\admin\behavior\ApiAuth @ [ RunTime:0.001685s ]
+[ info ] [ ROUTE ] array (
+  'type' => 'response',
+  'response' => 
+  think\response\Json::__set_state(array(
+     'options' => 
+    array (
+      'json_encode_param' => 256,
+    ),
+     'contentType' => 'application/json',
+     'data' => 
+    array (
+      'code' => -14,
+      'msg' => '缺少ApiAuth',
+      'data' => 
+      array (
+      ),
+    ),
+     'charset' => 'utf-8',
+     'code' => 200,
+     'header' => 
+    array (
+      'Content-Type' => 'application/json; charset=utf-8',
+      'Access-Control-Allow-Origin' => '*',
+      'Access-Control-Allow-Methods' => 'POST,PUT,GET,DELETE',
+      'Access-Control-Allow-Headers' => 'ApiAuth, User-Agent, Keep-Alive, Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With',
+      'Access-Control-Allow-Credentials' => 'true',
+    ),
+     'content' => NULL,
+  )),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => '*/*',
+  'postman-token' => '4d7d42a9-32c7-b713-d0f1-903c3a1423d8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36',
+  'cache-control' => 'no-cache',
+  'connection' => 'close',
+  'host' => 'adminapi.cn',
+)
+[ info ] [ PARAM ] array (
+  'page' => '1',
+  'size' => '10',
+  'type' => '',
+  'keywords' => '',
+  'status' => '',
+)
+[ info ] [ LOG ] INIT File
