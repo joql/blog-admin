@@ -31,6 +31,7 @@ class ApiAuth {
      */
     public function run() {
         $this->request = Request::instance();
+        $header = config('apiAdmin.CROSS_DOMAIN');
         $hash = $this->request->routeInfo();
         if (isset($hash['rule'][1])) {
             $hash = $hash['rule'][1];
