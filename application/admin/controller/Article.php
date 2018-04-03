@@ -6,7 +6,7 @@
  * Time: 21:56
  */
 
-namespace app\api\controller;
+namespace app\admin\controller;
 
 
 use app\model\BlogArticl;
@@ -36,7 +36,13 @@ class Article extends Base
             }
         }
 
-        $listInfo = (new BlogArticl())->where($where)->order('addtime', 'DESC')->limit($start, $limit)->select();
+        $listInfo = (new BlogArticl())
+            ->alias('ba')
+            ->field('ba.aid, ba.title as article_title, ba.author as auth_name, ba.keywords, ba.is_show, ba.is_delete, ba.is_top, ba.is_original as is_origin, ba.click, ba.addtime as push_time, ba.cid, bcg.cname as category_name')
+            ->join('blog_category bcg','ba.cid=bcg.cid','left')
+            ->where($where)
+            ->order('addtime', 'DESC')
+            ->limit($start, $limit)->select();
         $count = (new BlogArticl())->where($where)->count();
         $listInfo = Tools::buildArrFromObj($listInfo);
         /*$idArr = array_column($listInfo, 'aid');

@@ -235,6 +235,10 @@ return [
             'admin/Log/del',
             ['method' => 'get', 'after_behavior' => $afterBehavior]
         ],
+        'Article/lists'                     => [
+            'admin/Article/lists',
+            ['method' => 'get', 'after_behavior' => $afterBehavior]
+        ],
         '__miss__'                    => ['admin/Miss/index'],
     ],
 ];
