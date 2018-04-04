@@ -10,10 +10,22 @@ namespace app\admin\controller;
 
 
 use app\model\BlogArticl;
+use app\model\BlogArticleTag;
 use app\util\Tools;
+use app\util\ReturnCode;
+use think\Db;
 
 class Article extends Base
 {
+    /**
+     * use for: 获取文章列表
+     * auth: Joql
+     * @return array
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     * date:2018-04-04 16:29
+     */
     public function lists(){
         $limit = $this->request->get('size', config('apiAdmin.ADMIN_LIST_DEFAULT'));
         $start = $limit * ($this->request->get('page', 1) - 1);
@@ -59,19 +71,20 @@ class Article extends Base
         $userGroup = Tools::buildArrFromObj($userGroup);
         $userGroup = Tools::buildArrByNewKey($userGroup, 'uid');*/
 
-        /*foreach ($listInfo as $key => $value) {
-            if (isset($userData[$value['id']])) {
-                $listInfo[$key]['lastLoginIp'] = long2ip($userData[$value['id']]['lastLoginIp']);
-                $listInfo[$key]['loginTimes'] = $userData[$value['id']]['loginTimes'];
-                $listInfo[$key]['lastLoginTime'] = date('Y-m-d H:i:s', $userData[$value['id']]['lastLoginTime']);
+        foreach ($listInfo as $key => $value) {
+            $where_tags['aid'] = $value['aid'];
+            $tags = (new BlogArticleTag())
+                ->alias('bat')
+                ->field('bt.tname')
+                ->join('blog_tag bt','bat.tid=bt.tid','left')
+                ->where($where_tags)
+                ->select();
+            $tmp = Tools::buildArrFromObj($tags);
+            $listInfo[$key]['tag_name']='';
+            foreach ($tmp as $v){
+                $listInfo[$key]['tag_name'] .= $v['tname'].' ';
             }
-            $listInfo[$key]['regIp'] = long2ip($listInfo[$key]['regIp']);
-            if (isset($userGroup[$value['id']])) {
-                $listInfo[$key]['groupId'] = explode(',', $userGroup[$value['id']]['groupId']);
-            } else {
-                $listInfo[$key]['groupId'] = [];
-            }
-        }*/
+        }
 
         return $this->buildSuccess([
             'list'  => $listInfo,
@@ -79,5 +92,70 @@ class Article extends Base
         ]);
     }
 
+    /**
+     * use for:原创状态
+     * auth: Joql
+     * @return array
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
+     * date:2018-04-04 17:07
+     */
+    public function changeOriginState(){
+        $aid = $this->request->get('id');
+        $state = $this->request->get('status');
+
+        $where['aid']=$aid;
+        $save['is_original'] = $state;
+
+        $result = Db::table('blog_articl')->where($where)->update($save);
+        if($result == 0){
+            $this->buildFailed(ReturnCode::DB_SAVE_ERROR, '操作失败');
+        }
+        return $this->buildSuccess(['result'=>$result]);
+    }
+
+    /**
+     * use for: 置顶
+     * auth: Joql
+     * @return array
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
+     * date:2018-04-04 17:08
+     */
+    public function changeTopState(){
+        $aid = $this->request->get('id');
+        $state = $this->request->get('status');
+
+        $where['aid']=$aid;
+        $save['is_top'] = $state;
+
+        $result = Db::table('blog_articl')->where($where)->update($save);
+        if($result == 0){
+            $this->buildFailed(ReturnCode::DB_SAVE_ERROR, '操作失败');
+        }
+        return $this->buildSuccess(['result'=>$result]);
+    }
+
+    /**
+     * use for:展示
+     * auth: Joql
+     * @return array
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
+     * date:2018-04-04 17:08
+     */
+    public function changeShowState(){
+        $aid = $this->request->get('id');
+        $state = $this->request->get('status');
+
+        $where['aid']=$aid;
+        $save['is_show'] = $state;
+
+        $result = Db::table('blog_articl')->where($where)->update($save);
+        if($result == false){
+            $this->buildFailed(ReturnCode::DB_SAVE_ERROR, '操作失败');
+        }
+        return $this->buildSuccess(['result'=>$result]);
+    }
 
 }

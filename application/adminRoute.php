@@ -239,6 +239,18 @@ return [
             'admin/Article/lists',
             ['method' => 'get', 'after_behavior' => $afterBehavior]
         ],
-        '__miss__'                    => ['admin/Miss/index'],
+        'Article/changeOriginState'                     => [
+            'admin/Article/changeOriginState',
+            ['method' => 'get', 'after_behavior' => $afterBehavior]
+        ],
+        'Article/changeShowState'                     => [
+            'admin/Article/changeShowState',
+            ['method' => 'get', 'after_behavior' => $afterBehavior]
+        ],
+        'Article/changeTopState'                     => [
+            'admin/Article/changeTopState',
+            ['method' => 'get', 'after_behavior' => $afterBehavior]
+        ],
+        '__miss__' => ['admin/Miss/index'],
     ],
 ];
