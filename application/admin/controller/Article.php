@@ -11,6 +11,8 @@ namespace app\admin\controller;
 
 use app\model\BlogArticl;
 use app\model\BlogArticleTag;
+use app\model\BlogCategory;
+use app\model\BlogTag;
 use app\util\Tools;
 use app\util\ReturnCode;
 use think\Db;
@@ -50,7 +52,7 @@ class Article extends Base
 
         $listInfo = (new BlogArticl())
             ->alias('ba')
-            ->field('ba.aid, ba.title as article_title, ba.author as auth_name, ba.keywords, ba.is_show, ba.is_delete, ba.is_top, ba.is_original as is_origin, ba.click, ba.addtime as push_time, ba.cid, bcg.cname as category_name')
+            ->field('ba.aid, ba.title as article_title, ba.author as auth_name, ba.is_show, ba.is_delete, ba.is_top, ba.is_original as is_origin, ba.click, ba.addtime as push_time, ba.cid, bcg.cname as category_name')
             ->join('blog_category bcg','ba.cid=bcg.cid','left')
             ->where($where)
             ->order('addtime', 'DESC')
@@ -84,12 +86,33 @@ class Article extends Base
             foreach ($tmp as $v){
                 $listInfo[$key]['tag_name'] .= $v['tname'].' ';
             }
+
         }
 
         return $this->buildSuccess([
             'list'  => $listInfo,
             'count' => $count
         ]);
+    }
+
+    public function articleInfo(){
+        $aid = $this->request->get('id');
+
+        $where = ['aid'=>$aid];
+        $info = Db::table('blog_articl')
+            ->field('ba.aid, ba.title as article_title, ba.content as body, ba.description as descr, ba.author as auth_name, ba.keywords as keyw, ba.is_show, ba.is_delete, ba.is_top, ba.is_original as is_origin, ba.click, ba.addtime as push_time, ba.cid, bcg.cname as category_name')
+            ->alias('ba')
+            ->join('blog_category bcg','ba.cid=bcg.cid','left')
+            ->where($where)->find();
+        //文章内容
+        $info['body'] = htmlspecialchars_decode($info['body']);
+        //文章描述
+        $info['descr'] = htmlspecialchars_decode($info['descr']);
+
+        $info['is_top'] = ($info['is_top'] == 1) ? true : false;
+        $info['is_origin'] = ($info['is_origin'] == 1) ? true : false;
+        return $this->buildSuccess($info);
+
     }
 
     /**
@@ -157,5 +180,96 @@ class Article extends Base
         }
         return $this->buildSuccess(['result'=>$result]);
     }
+
+    /**
+     * use for:保存文章
+     * auth: Joql
+     * @return array
+     * date:2018-04-06 23:51
+     */
+    public function push(){
+        $ApiAuth = $this->request->header('ApiAuth', '');
+        $userInfo = cache('Login:' . $ApiAuth);
+        $userInfo = json_decode($userInfo, true);
+
+        $post = $this->request->post();
+        $aid = $this->request->post('id');
+        $title = $this->request->post('title');
+        $body = htmlspecialchars($this->request->post('body'));
+        $cid = $this->request->post('category_id');
+        $desc = htmlspecialchars($this->request->post('desc'));
+        $keyword = $this->request->post('keyw');
+        $tags = $post['tags'];
+        $is_show = $this->request->post('is_show');
+        $is_top = $this->request->post('is_top') == true ? 1:0;
+        $is_origin = $this->request->post('is_origin') == true ? 1:0;
+
+        $save = array(
+            'title'     => $title,
+            'author'    => $userInfo['nickname'],
+            'content'   => $body,
+            'keywords'  => $keyword,
+            'description'=>$desc,
+            'is_show'   =>$is_show,
+            'is_top'    =>$is_top,
+            'is_original' =>$is_origin,
+            'cid'       =>$cid
+        );
+        if(empty($aid)){
+            $save['addtime'] = time();
+            Db::table('blog_articl')->startTrans();
+            Db::table('blog_articl')->insert($save);
+            $insert_id = Db::table('blog_articl')->getLastInsID();
+            if(empty($insert_id)){
+                Db::table('blog_articl')->rollback();
+                return $this->buildFailed(ReturnCode::DB_SAVE_ERROR,'文章添加失败');
+            }
+            if(!empty($tags)){
+                $save_category = array();
+                foreach ($tags as $k=>$v){
+                    $save_category[] = ['aid'=>$insert_id,'tid'=>$v];
+                }
+                $insert_cid = Db::table('blog_article_tag')->insertAll($save_category);
+                if(empty($insert_cid)){
+                    Db::table('blog_articl')->rollback();
+                    return $this->buildFailed(ReturnCode::DB_SAVE_ERROR,'文章目录添加失败');
+                }
+            }
+            Db::table('blog_articl')->commit();
+        }else{
+            $where = ['aid'=>$aid];
+            Db::table('blog_articl')->where($where)->update($save);
+            if(!empty($tags)){
+                Db::table('blog_article_tag')->where($where)->delete();
+                $save_category = array();
+                foreach ($tags as $k=>$v){
+                    $save_category[] = ['aid'=>$aid,'tid'=>$v];
+                }
+                $insert_cid = Db::table('blog_article_tag')->insertAll($save_category);
+                if(empty($insert_cid)){
+                    return $this->buildFailed(ReturnCode::DB_SAVE_ERROR,'文章目录保存失败',$insert_cid);
+                }
+            }
+
+        }
+
+        return $this->buildSuccess([]);
+
+    }
+
+    /**
+     * use for:删除
+     * auth: Joql
+     * @return array
+     * date:2018-04-07 11:10
+     */
+    public function del(){
+        $aid = $this->request->get('id');
+        $where = ['aid'=>$aid];
+        Db::table('blog_articl')->where($where)->delete();
+        Db::table('blog_article_tag')->where($where)->delete();
+        return $this->buildSuccess([]);
+    }
+
 
 }

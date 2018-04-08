@@ -41,7 +41,7 @@ function listToTree($list, $pk='id', $pid = 'fid', $child = '_child', $root = '0
     return $tree;
 }
 
-function formatTree($list, $lv = 0, $title = 'name'){
+function formatTree($list, $lv = 0, $title = 'name', $sort ='sort'){
     $formatTree = array();
     foreach($list as $key => $val){
         $title_prefix = '';
@@ -51,6 +51,7 @@ function formatTree($list, $lv = 0, $title = 'name'){
         $val['lv'] = $lv;
         $val['namePrefix'] = $lv == 0 ? '' : $title_prefix;
         $val['showName'] = $lv == 0 ? $val[$title] : $title_prefix.$val[$title];
+        $val['showSort'] = $lv == 0 ? $val[$sort] : $title_prefix.$val[$sort];
         if(!array_key_exists('_child', $val)){
             array_push($formatTree, $val);
         }else{

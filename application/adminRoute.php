@@ -239,6 +239,10 @@ return [
             'admin/Article/lists',
             ['method' => 'get', 'after_behavior' => $afterBehavior]
         ],
+        'Article/articleInfo'                     => [
+            'admin/Article/articleInfo',
+            ['method' => 'get', 'after_behavior' => $afterBehavior]
+        ],
         'Article/changeOriginState'                     => [
             'admin/Article/changeOriginState',
             ['method' => 'get', 'after_behavior' => $afterBehavior]
@@ -249,6 +253,46 @@ return [
         ],
         'Article/changeTopState'                     => [
             'admin/Article/changeTopState',
+            ['method' => 'get', 'after_behavior' => $afterBehavior]
+        ],
+        'Article/dirLists'                     => [
+            'admin/Article/dirLists',
+            ['method' => 'get', 'after_behavior' => $afterBehavior]
+        ],
+        'Article/push'                     => [
+            'admin/Article/push',
+            ['method' => 'post', 'after_behavior' => $afterBehavior]
+        ],
+        'Article/del'                     => [
+            'admin/Article/del',
+            ['method' => 'post', 'after_behavior' => $afterBehavior]
+        ],
+        'Tag/lists'                     => [
+            'admin/Tag/lists',
+            ['method' => 'get', 'after_behavior' => $afterBehavior]
+        ],
+        'Tag/addTag'                     => [
+            'admin/Tag/addTag',
+            ['method' => 'post', 'after_behavior' => $afterBehavior]
+        ],
+        'Tag/getSelectedTag'                     => [
+            'admin/Tag/getSelectedTag',
+            ['method' => 'get', 'after_behavior' => $afterBehavior]
+        ],
+        'ArticleDir/lists'                     => [
+            'admin/ArticleDir/lists',
+            ['method' => 'get', 'after_behavior' => $afterBehavior]
+        ],
+        'ArticleDir/getDir'                     => [
+            'admin/ArticleDir/getDir',
+            ['method' => 'get', 'after_behavior' => $afterBehavior]
+        ],
+        'ArticleDir/push'                     => [
+            'admin/ArticleDir/push',
+            ['method' => 'post', 'after_behavior' => $afterBehavior]
+        ],
+        'ArticleDir/del'                     => [
+            'admin/ArticleDir/del',
             ['method' => 'get', 'after_behavior' => $afterBehavior]
         ],
         '__miss__' => ['admin/Miss/index'],
