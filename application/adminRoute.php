@@ -295,6 +295,30 @@ return [
             'admin/ArticleDir/del',
             ['method' => 'get', 'after_behavior' => $afterBehavior]
         ],
+        'Config/basic'                     => [
+            'admin/Config/basic',
+            ['method' => 'get|post', 'after_behavior' => $afterBehavior]
+        ],
+        'Config/updateBase'                     => [
+            'admin/Config/updateBase',
+            ['method' => 'post', 'after_behavior' => $afterBehavior]
+        ],
+        'Config/updateShare'                     => [
+            'admin/Config/updateShare',
+            ['method' => 'post', 'after_behavior' => $afterBehavior]
+        ],
+        'Config/updateArticls'                     => [
+            'admin/Config/updateArticls',
+            ['method' => 'post', 'after_behavior' => $afterBehavior]
+        ],
+        'Config/updateEmail'                     => [
+            'admin/Config/updateEmail',
+            ['method' => 'post', 'after_behavior' => $afterBehavior]
+        ],
+        'Config/updateComment'                     => [
+            'admin/Config/updateComment',
+            ['method' => 'post', 'after_behavior' => $afterBehavior]
+        ],
         '__miss__' => ['admin/Miss/index'],
     ],
 ];
