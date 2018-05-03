@@ -30,6 +30,7 @@ class Config extends Base
 
         }else{
             $info = Db::name('config')->field("name, value")->select();
+            $data = [];
             foreach ($info as $k=>$v){
                 $data[$v['name']] = $v['value'];
             }
