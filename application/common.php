@@ -64,3 +64,50 @@ function formatTree($list, $lv = 0, $title = 'name', $sort ='sort'){
     }
     return $formatTree;
 }
+
+/**
+ * use for:批量保存
+ * auth: Joql
+ * @param $table
+ * @param $update
+ * @return int|string
+ * @throws \think\Exception
+ * @throws \think\exception\PDOException
+ * date:2018-05-03 10:27
+ */
+function dbSaveAll($table, $update){
+    foreach ($update as $k=>$v){
+        $keys = array_keys($v);
+        $result = \think\Db::name($table)->where([$keys[0] => $v[$keys[0]]])->update([$keys[1] => $v[$keys[1]]]);
+        $result +=intval($result);
+        unset($keys);
+    }
+    return $result;
+}
+
+/**
+ * 构建适用前端的权限数据
+ * @param $list
+ * @param $rules
+ * @return array
+ * @author zhaoxiang <zhaoxiang051405@gmail.com>
+ */
+function buildList($list, $rules) {
+    $newList = [];
+    foreach ($list as $key => $value) {
+        $newList[$key]['title'] = $value['cname'];
+        $newList[$key]['selected'] = $value['selected'];
+        $newList[$key]['cid'] = $value['cid'];
+        //$newList[$key]['key'] = $value['url'];
+        if (isset($value['_child'])) {
+            $newList[$key]['expand'] = true;
+            $newList[$key]['children'] = $this->buildList($value['_child'], $rules);
+        } else {
+            /*if (in_array($value['url'], $rules)) {
+                $newList[$key]['checked'] = true;
+            }*/
+        }
+    }
+
+    return $newList;
+}

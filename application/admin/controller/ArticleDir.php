@@ -17,7 +17,7 @@ class ArticleDir extends Base
 {
 
     public function lists(){
-        $listinfo = Db::table('blog_category')
+        $listinfo = Db::name('category')
             ->field('cid as category_id, cname as category_name, keywords as category_key, description as category_desc, pid, sort')
             ->order('sort', 'ASC')->select();
         $listinfo = formatTree(listToTree($listinfo,'category_id','pid'),0,'category_name');
@@ -48,13 +48,13 @@ class ArticleDir extends Base
             'pid'       => $pid
         );
         if(empty($cid)){
-            Db::table('blog_category')->insert($save);
-            $insert_id = Db::table('blog_category')->getLastInsID();
+            Db::name('category')->insert($save);
+            $insert_id = Db::name('category')->getLastInsID();
             if(empty($insert_id)){
                 return $this->buildFailed(ReturnCode::DB_SAVE_ERROR,'分类添加失败');
             }
         }else{
-            Db::table('blog_category')->where(['cid'=>$cid])->update($save);
+            Db::name('category')->where(['cid'=>$cid])->update($save);
         }
         return $this->buildSuccess([]);
     }
@@ -62,7 +62,7 @@ class ArticleDir extends Base
     public function del(){
         $cid = $this->request->get('id');
         $where = ['cid'=>$cid];
-        Db::table('blog_category')->where($where)->limit(1)->delete();
+        Db::name('category')->where($where)->limit(1)->delete();
         return $this->buildSuccess([]);
     }
     /**
@@ -76,9 +76,9 @@ class ArticleDir extends Base
         $aid = $this->request->get('id');
         $where = ['aid'=>$aid];
 
-        $cid = Db::table('blog_articl')->field('cid')->where($where)->find();
+        $cid = Db::name('articl')->field('cid')->where($where)->find();
 
-        $list = (new BlogCategory())->order('sort', 'ASC')->select();
+        $list = Db::name('category')->order('sort', 'ASC')->select();
         $list = Tools::buildArrFromObj($list);
         foreach ($list as $k=>$v){
             if($v['cid'] == $cid['cid']){
@@ -90,38 +90,11 @@ class ArticleDir extends Base
 
         $list = listToTree($list,'cid','pid');
         $rules = [];
-        $newList = $this->buildList($list, $rules);
+        $newList = buildList($list, $rules);
 
         return $this->buildSuccess([
             'list' => $newList
         ]);
     }
 
-
-    /**
-     * 构建适用前端的权限数据
-     * @param $list
-     * @param $rules
-     * @return array
-     * @author zhaoxiang <zhaoxiang051405@gmail.com>
-     */
-    private function buildList($list, $rules) {
-        $newList = [];
-        foreach ($list as $key => $value) {
-            $newList[$key]['title'] = $value['cname'];
-            $newList[$key]['selected'] = $value['selected'];
-            $newList[$key]['cid'] = $value['cid'];
-            //$newList[$key]['key'] = $value['url'];
-            if (isset($value['_child'])) {
-                $newList[$key]['expand'] = true;
-                $newList[$key]['children'] = $this->buildList($value['_child'], $rules);
-            } else {
-                /*if (in_array($value['url'], $rules)) {
-                    $newList[$key]['checked'] = true;
-                }*/
-            }
-        }
-
-        return $newList;
-    }
 }

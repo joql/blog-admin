@@ -29,7 +29,7 @@ class Config extends Base
         if(Request::instance()->isPost()){
 
         }else{
-            $info = (new AdminConfig())->field("name, value")->select();
+            $info = Db::name('config')->field("name, value")->select();
             foreach ($info as $k=>$v){
                 $data[$v['name']] = $v['value'];
             }
@@ -49,7 +49,7 @@ class Config extends Base
             ['name'=>'WEB_ICP_NUMBER','value'=>$icp_number],
             ['name'=>'ADMIN_EMAIL','value'=>$email],
         ];
-        $result = (new AdminConfig())->saveAll($update);
+        $result = dbSaveAll('config', $update);
         if($result === false){
             return $this->buildFailed(ReturnCode::DB_SAVE_ERROR,'操作失败');
         }else{
@@ -66,16 +66,11 @@ class Config extends Base
 
 
         $update = [
-            ['name'=>'WEB_NAME','value'=>$web_name],
-            ['name'=>'WEB_KEYWORDS','value'=>$web_key_words],
-            ['name'=>'WEB_DESCRIPTION','value'=>$web_desc],
-            ['name'=>'AUTHOR','value'=>$author],
-            ['name'=>'COPYRIGHT_WORD','value'=>$copyright_word],
-            ['name'=>'IMAGE_TITLE_ALT_WORD','value'=>$imt_title_alt_word]
+            ['name'=>'WEB_NAME','value'=>$web_name]
         ];
-        $result = (new AdminConfig())->saveAll($update);
-        if($result === false){
-            return $this->buildFailed(ReturnCode::DB_SAVE_ERROR,'操作失败');
+        $result = dbSaveAll('config', $update);
+        if($result == 0){
+            return $this->buildFailed(ReturnCode::DB_SAVE_ERROR,'保存未生效');
         }else{
             return $this->buildSuccess(['result'=>$result]);
         }
@@ -106,7 +101,7 @@ class Config extends Base
             ['name'=>'IMAGE_WATER_LOCATE','value'=>$img_water_locate],
             ['name'=>'IMAGE_WATER_ALPHA','value'=>$img_water_alpha],
         ];
-        $result = (new AdminConfig())->saveAll($update);
+        $result = dbSaveAll('config', $update);
         if($result === false){
             return $this->buildFailed(ReturnCode::DB_SAVE_ERROR,'操作失败');
         }else{
@@ -126,7 +121,7 @@ class Config extends Base
             ['name'=>'EMAIL_PASSWORD','value'=>$password],
             ['name'=>'EMAIL_FROM_NAME','value'=>$name]
         ];
-        $result = (new AdminConfig())->saveAll($update);
+        $result = dbSaveAll('config', $update);
         if($result === false){
             return $this->buildFailed(ReturnCode::DB_SAVE_ERROR,'操作失败');
         }else{
@@ -143,7 +138,7 @@ class Config extends Base
             ['name'=>'COMMENT_SEND_EMAIL','value'=>$send_email],
             ['name'=>'EMAIL_RECEIVE','value'=>$email_receive]
         ];
-        $result = (new AdminConfig())->saveAll($update);
+        $result = dbSaveAll('config', $update);
         if($result === false){
             return $this->buildFailed(ReturnCode::DB_SAVE_ERROR,'操作失败');
         }else{

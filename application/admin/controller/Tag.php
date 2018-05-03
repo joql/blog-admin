@@ -16,8 +16,8 @@ use think\Db;
 class Tag extends Base
 {
     public function lists(){
-        $list = (new BlogTag())->field('tid, tname as value')->select();
-        $count = Db::table('blog_tag')->count();
+        $list = Db::name('tag')->field('tid, tname as value')->select();
+        $count = Db::name('tag')->count();
         $list = Tools::buildArrFromObj($list);
         return $this->buildSuccess(['list'=>$list,'count'=>$count]);
 
@@ -25,10 +25,10 @@ class Tag extends Base
 
     public function addTag(){
         $tname = $this->request->post('tag_name');
-        (new BlogTag())->insert([
+        Db::name('tag')->insert([
             'tname'=>$tname
         ]);
-        $tid = (new BlogTag())->getLastInsID();
+        $tid = Db::name('tag')->getLastInsID();
         return $this->buildSuccess(['tid'=>$tid]);
     }
 
@@ -41,7 +41,7 @@ class Tag extends Base
     public function getSelectedTag(){
         $aid = $this->request->get('id');
         $where = ['aid'=>$aid];
-        $tids = Db::table('blog_article_tag')->field('tid')->where($where)->select();
+        $tids = Db::name('article_tag')->field('tid')->where($where)->select();
         $back = array();
         foreach ($tids as $k=>$v){
             $back[] = $v['tid'];
