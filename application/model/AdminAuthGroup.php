@@ -9,7 +9,10 @@ namespace app\model;
 
 
 class AdminAuthGroup extends Base {
-
+    protected $connection = [
+        // 数据库表前缀
+        'prefix'          => ''
+    ];
     public function rules() {
         return $this->hasMany('AdminAuthRule', 'groupId', 'id');
     }

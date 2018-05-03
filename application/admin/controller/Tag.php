@@ -18,7 +18,7 @@ class Tag extends Base
     public function lists(){
         $list = Db::name('tag')->field('tid, tname as value')->select();
         $count = Db::name('tag')->count();
-        $list = Tools::buildArrFromObj($list);
+        //$list = Tools::buildArrFromObj($list);
         return $this->buildSuccess(['list'=>$list,'count'=>$count]);
 
     }

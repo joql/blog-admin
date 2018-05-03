@@ -8,5 +8,8 @@ namespace app\model;
 
 
 class AdminUserData extends Base {
-
+    protected $connection = [
+        // 数据库表前缀
+        'prefix'          => ''
+    ];
 }

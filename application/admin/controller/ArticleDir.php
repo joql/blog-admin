@@ -79,7 +79,7 @@ class ArticleDir extends Base
         $cid = Db::name('articl')->field('cid')->where($where)->find();
 
         $list = Db::name('category')->order('sort', 'ASC')->select();
-        $list = Tools::buildArrFromObj($list);
+        //$list = Tools::buildArrFromObj($list);
         foreach ($list as $k=>$v){
             if($v['cid'] == $cid['cid']){
                 $list[$k]['selected'] = true;

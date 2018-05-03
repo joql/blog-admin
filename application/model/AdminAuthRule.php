@@ -9,5 +9,8 @@ namespace app\model;
 
 
 class AdminAuthRule extends Base {
-
+    protected $connection = [
+        // 数据库表前缀
+        'prefix'          => ''
+    ];
 }

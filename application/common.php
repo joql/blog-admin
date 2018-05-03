@@ -101,7 +101,7 @@ function buildList($list, $rules) {
         //$newList[$key]['key'] = $value['url'];
         if (isset($value['_child'])) {
             $newList[$key]['expand'] = true;
-            $newList[$key]['children'] = $this->buildList($value['_child'], $rules);
+            $newList[$key]['children'] = buildList($value['_child'], $rules);
         } else {
             /*if (in_array($value['url'], $rules)) {
                 $newList[$key]['checked'] = true;

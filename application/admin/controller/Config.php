@@ -66,7 +66,12 @@ class Config extends Base
 
 
         $update = [
-            ['name'=>'WEB_NAME','value'=>$web_name]
+            ['name'=>'WEB_NAME','value'=>$web_name],
+            ['name'=>'WEB_KEYWORDS','value'=>$web_key_words],
+            ['name'=>'WEB_DESCRIPTION','value'=>$web_desc],
+            ['name'=>'AUTHOR','value'=>$author],
+            ['name'=>'COPYRIGHT_WORD','value'=>$copyright_word],
+            ['name'=>'IMAGE_TITLE_ALT_WORD','value'=>$imt_title_alt_word]
         ];
         $result = dbSaveAll('config', $update);
         if($result == 0){

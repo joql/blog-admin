@@ -11,5 +11,8 @@ namespace app\model;
 
 class AdminConfig extends Base
 {
-
+    protected $connection = [
+        // 数据库表前缀
+        'prefix'          => ''
+    ];
 }

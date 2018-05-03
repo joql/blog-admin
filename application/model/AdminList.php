@@ -7,5 +7,8 @@
 namespace app\model;
 
 class AdminList extends Base {
-
+    protected $connection = [
+        // 数据库表前缀
+        'prefix'          => ''
+    ];
 }

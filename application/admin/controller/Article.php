@@ -50,15 +50,15 @@ class Article extends Base
             }
         }
 
-        $listInfo = (new BlogArticl())
+        $listInfo = Db::name('articl')
             ->alias('ba')
             ->field('ba.aid, ba.title as article_title, ba.author as auth_name, ba.is_show, ba.is_delete, ba.is_top, ba.is_original as is_origin, ba.click, ba.addtime as push_time, ba.cid, bcg.cname as category_name')
             ->join('blog_category bcg','ba.cid=bcg.cid','left')
             ->where($where)
             ->order('addtime', 'DESC')
             ->limit($start, $limit)->select();
-        $count = (new BlogArticl())->where($where)->count();
-        $listInfo = Tools::buildArrFromObj($listInfo);
+        $count = Db::name('articl')->where($where)->count();
+        //$listInfo = Tools::buildArrFromObj($listInfo);
         /*$idArr = array_column($listInfo, 'aid');
 
         $userData = AdminUserData::all(function($query) use ($idArr) {
@@ -75,15 +75,15 @@ class Article extends Base
 
         foreach ($listInfo as $key => $value) {
             $where_tags['aid'] = $value['aid'];
-            $tags = (new BlogArticleTag())
+            $tags =Db::name('article_tag')
                 ->alias('bat')
                 ->field('bt.tname')
                 ->join('blog_tag bt','bat.tid=bt.tid','left')
                 ->where($where_tags)
                 ->select();
-            $tmp = Tools::buildArrFromObj($tags);
+            //$tmp = Tools::buildArrFromObj($tags);
             $listInfo[$key]['tag_name']='';
-            foreach ($tmp as $v){
+            foreach ($tags as $v){
                 $listInfo[$key]['tag_name'] .= $v['tname'].' ';
             }
 
@@ -99,7 +99,7 @@ class Article extends Base
         $aid = $this->request->get('id');
 
         $where = ['aid'=>$aid];
-        $info = Db::table('blog_articl')
+        $info = Db::name('articl')
             ->field('ba.aid, ba.title as article_title, ba.content as body, ba.description as descr, ba.author as auth_name, ba.keywords as keyw, ba.is_show, ba.is_delete, ba.is_top, ba.is_original as is_origin, ba.click, ba.addtime as push_time, ba.cid, bcg.cname as category_name')
             ->alias('ba')
             ->join('blog_category bcg','ba.cid=bcg.cid','left')
@@ -130,7 +130,7 @@ class Article extends Base
         $where['aid']=$aid;
         $save['is_original'] = $state;
 
-        $result = Db::table('blog_articl')->where($where)->update($save);
+        $result = Db::name('articl')->where($where)->update($save);
         if($result == 0){
             $this->buildFailed(ReturnCode::DB_SAVE_ERROR, '操作失败');
         }
@@ -152,7 +152,7 @@ class Article extends Base
         $where['aid']=$aid;
         $save['is_top'] = $state;
 
-        $result = Db::table('blog_articl')->where($where)->update($save);
+        $result = Db::name('articl')->where($where)->update($save);
         if($result == 0){
             $this->buildFailed(ReturnCode::DB_SAVE_ERROR, '操作失败');
         }
@@ -174,7 +174,7 @@ class Article extends Base
         $where['aid']=$aid;
         $save['is_show'] = $state;
 
-        $result = Db::table('blog_articl')->where($where)->update($save);
+        $result = Db::name('articl')->where($where)->update($save);
         if($result == false){
             $this->buildFailed(ReturnCode::DB_SAVE_ERROR, '操作失败');
         }
@@ -221,7 +221,7 @@ class Article extends Base
             Db::table('blog_articl')->insert($save);
             $insert_id = Db::table('blog_articl')->getLastInsID();
             if(empty($insert_id)){
-                Db::table('blog_articl')->rollback();
+                Db::name('articl')->rollback();
                 return $this->buildFailed(ReturnCode::DB_SAVE_ERROR,'文章添加失败');
             }
             if(!empty($tags)){
@@ -231,16 +231,16 @@ class Article extends Base
                 }
                 $insert_cid = Db::table('blog_article_tag')->insertAll($save_category);
                 if(empty($insert_cid)){
-                    Db::table('blog_articl')->rollback();
+                    Db::name('articl')->rollback();
                     return $this->buildFailed(ReturnCode::DB_SAVE_ERROR,'文章目录添加失败');
                 }
             }
-            Db::table('blog_articl')->commit();
+            Db::name('articl')->commit();
         }else{
             $where = ['aid'=>$aid];
-            Db::table('blog_articl')->where($where)->update($save);
+            Db::name('articl')->where($where)->update($save);
             if(!empty($tags)){
-                Db::table('blog_article_tag')->where($where)->delete();
+                Db::name('article_tag')->where($where)->delete();
                 $save_category = array();
                 foreach ($tags as $k=>$v){
                     $save_category[] = ['aid'=>$aid,'tid'=>$v];
@@ -266,8 +266,8 @@ class Article extends Base
     public function del(){
         $aid = $this->request->get('id');
         $where = ['aid'=>$aid];
-        Db::table('blog_articl')->where($where)->delete();
-        Db::table('blog_article_tag')->where($where)->delete();
+        Db::name('articl')->where($where)->delete();
+        Db::name('article_tag')->where($where)->delete();
         return $this->buildSuccess([]);
     }
 
