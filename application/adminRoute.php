@@ -295,6 +295,18 @@ return [
             'admin/ArticleDir/del',
             ['method' => 'get', 'after_behavior' => $afterBehavior]
         ],
+        'Comment/lists'                     => [
+            'admin/Comment/lists',
+            ['method' => 'get', 'after_behavior' => $afterBehavior]
+        ],
+        'Comment/changeStatus'                     => [
+            'admin/Comment/changeStatus',
+            ['method' => 'get', 'after_behavior' => $afterBehavior]
+        ],
+        'Comment/del'                     => [
+            'admin/Comment/del',
+            ['method' => 'get', 'after_behavior' => $afterBehavior]
+        ],
         'Config/basic'                     => [
             'admin/Config/basic',
             ['method' => 'get|post', 'after_behavior' => $afterBehavior]

@@ -9,17 +9,32 @@
 namespace app\admin\controller;
 
 
+use app\util\ReturnCode;
 use think\Db;
+use think\Request;
 
 class Comment extends Base
 {
     public function lists(){
         $list = $this->getDataByState(0);
-        $this->buildSuccess($list);
+        return $this->buildSuccess(['list'=>$list]);
     }
 
-    public function change_status(){
+    public function changeStatus(){
+        $cmtid = $this->request->get('cmid');
+        $state = $this->request->get('status',0);
 
+        $result = Db::name('comment')->where(['cmtid'=>$cmtid])->update(['status'=>$state]);
+        if($result == 0){
+            return $this->buildFailed(ReturnCode::DB_SAVE_ERROR,'操作失败');
+        }
+        return $this->buildSuccess([]);
+    }
+
+    public function del(){
+        $cmid = $this->request->get('cmid');
+        Db::name('comment')->where(['cmtid'=>$cmid])->delete();
+        return $this->buildSuccess([]);
     }
 
     /**
@@ -32,13 +47,17 @@ class Comment extends Base
     private function getDataByState($is_delete){
 
         $list=Db::name('comment')
-            ->field('c.*,a.title,u.nickname')
+            ->field('c.cmtid as comment_id, a.title as comment_article, u.nickname as comment_user, c.date as comment_time, c.content as comment_content, c.status as comment_state')
             ->alias('c')
-            ->join('__ARTICLE__ a ON a.aid=c.aid')
-            ->join('__USER__ u ON u.id=c.uid')
+            ->join('__ARTICL__ a','a.aid=c.aid')
+            ->join(['admin_user'=>'u'],'u.id=c.uid')
             ->where(array('c.is_delete'=>$is_delete))
             ->order('date desc')
             ->select();
+
+        foreach ($list as $k=>$v){
+            $list[$k]['comment_content'] = htmlspecialchars_decode($v['comment_content']);
+        }
 
         return $list;
     }
